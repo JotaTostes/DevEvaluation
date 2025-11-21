@@ -2,6 +2,7 @@
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.Domain.Services;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -12,16 +13,19 @@ public class CreateSaleHandler : IRequestHandler<CreateSaleCommand, SaleDto>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
+    private readonly IEventPublisher _eventPublisher;
 
     /// <summary>
     /// Initializes a new instance of CreateSaleHandler
     /// </summary>
     /// <param name="saleRepository">The sale repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    public CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper)
+    /// <param name="eventPublisher">The event publisher</param>
+    public CreateSaleHandler(ISaleRepository saleRepository, IMapper mapper, IEventPublisher eventPublisher)
     {
         _saleRepository = saleRepository;
         _mapper = mapper;
+        _eventPublisher = eventPublisher;
     }
 
     /// <summary>

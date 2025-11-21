@@ -13,6 +13,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.10" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
 		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.10" />
+		<PackageReference Include="Rebus.Serilog" Version="8.1.0" />
+		<PackageReference Include="Rebus.ServiceProvider" Version="10.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>

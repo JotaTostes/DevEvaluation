@@ -2,6 +2,7 @@
 using Ambev.DeveloperEvaluation.Application.Sales.DTOs;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Ambev.DeveloperEvaluation.Domain.Services;
 using AutoMapper;
 using FluentValidation;
 using MediatR;
@@ -17,16 +18,19 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, SaleDto>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IMapper _mapper;
+    private readonly IEventPublisher _eventPublisher;
 
     /// <summary>
     /// Initializes a new instance of UpdateSaleHandler
     /// </summary>
     /// <param name="saleRepository">The sale repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    public UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper)
+    /// <param name="eventPublisher">The event publisher</param>
+    public UpdateSaleHandler(ISaleRepository saleRepository, IMapper mapper, IEventPublisher eventPublisher)
     {
         _saleRepository = saleRepository;
         _mapper = mapper;
+        _eventPublisher = eventPublisher;
     }
 
     /// <summary>
@@ -37,14 +41,12 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, SaleDto>
     /// <returns>The updated sale data</returns>
     public async Task<SaleDto> Handle(UpdateSaleCommand request, CancellationToken cancellationToken)
     {
-        // Validate the command
         var validator = new UpdateSaleValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        // Get existing sale
         var existingSale = await _saleRepository.GetByIdAsync(request.Id, cancellationToken);
         if (existingSale == null)
             throw new InvalidOperationException($"Sale with ID {request.Id} not found");
@@ -52,7 +54,6 @@ public class UpdateSaleHandler : IRequestHandler<UpdateSaleCommand, SaleDto>
         if (existingSale.IsCancelled())
             throw new InvalidOperationException("Cannot update a cancelled sale");
 
-        // Update basic properties
         existingSale.CustomerId = request.CustomerId;
         existingSale.CustomerName = request.CustomerName;
         existingSale.BranchId = request.BranchId;

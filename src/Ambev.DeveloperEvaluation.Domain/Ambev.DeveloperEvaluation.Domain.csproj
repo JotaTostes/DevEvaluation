@@ -7,12 +7,12 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Events\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.10.0" />
+    <PackageReference Include="Rebus" Version="8.9.0" />
   </ItemGroup>
 
   <ItemGroup>
