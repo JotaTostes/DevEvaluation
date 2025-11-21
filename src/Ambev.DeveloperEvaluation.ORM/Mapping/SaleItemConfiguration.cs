@@ -59,13 +59,11 @@ public class SaleItemConfiguration : IEntityTypeConfiguration<SaleItem>
 
         builder.Property(si => si.UpdatedAt);
 
-        // Relationship with Sale
         builder.HasOne(si => si.Sale)
             .WithMany(s => s.Items)
             .HasForeignKey(si => si.SaleId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Indexes for better query performance
         builder.HasIndex(si => si.SaleId);
         builder.HasIndex(si => si.ProductId);
         builder.HasIndex(si => si.IsCancelled);

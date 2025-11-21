@@ -49,7 +49,7 @@ public sealed class CreateSaleCommandFaker : Faker<CreateSaleCommand>
             {
                 ProductId = "PROD-001",
                 ProductName = "Test Product",
-                Quantity = 25, // Invalid: > 20
+                Quantity = 25, 
                 UnitPrice = 10.00m
             }
         };

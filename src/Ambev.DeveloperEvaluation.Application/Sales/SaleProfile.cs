@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Domain.Entities;
 using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales;
+
 public class SaleProfile : Profile
 {
     public SaleProfile()
@@ -39,6 +40,7 @@ public class SaleProfile : Profile
         CreateMap<UpdateSaleCommand, Sale>()
             .ForMember(dest => dest.Id, opt => opt.Ignore())
             .ForMember(dest => dest.SaleNumber, opt => opt.Ignore())
+            .ForMember(dest => dest.SaleDate, opt => opt.Ignore())
             .ForMember(dest => dest.TotalAmount, opt => opt.Ignore())
             .ForMember(dest => dest.Status, opt => opt.Ignore())
             .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())

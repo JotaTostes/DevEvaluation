@@ -53,9 +53,6 @@ public class CreateSaleRequest
     public List<CreateSaleItemRequest> Items { get; set; } = new();
 }
 
-/// <summary>
-/// Request model for creating a sale item
-/// </summary>
 public class CreateSaleItemRequest
 {
     /// <summary>
