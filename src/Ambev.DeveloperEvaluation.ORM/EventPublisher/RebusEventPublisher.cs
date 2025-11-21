@@ -1,9 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Ambev.DeveloperEvaluation.Domain.Services;
+using Microsoft.Extensions.Logging;
 using Rebus.Bus;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
-using Ambev.DeveloperEvaluation.Domain.Services;
+using System.Threading.Tasks;
 
-namespace Ambev.DeveloperEvaluation.Common.EventPublisher;
+namespace Ambev.DeveloperEvaluation.ORM.EventPublisher;
 
 public class RebusEventPublisher : IEventPublisher
 {

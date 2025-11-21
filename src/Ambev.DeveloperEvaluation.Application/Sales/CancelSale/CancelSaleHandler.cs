@@ -62,3 +62,4 @@ public class CancelSaleHandler : IRequestHandler<CancelSaleCommand, SaleDto>
 
         return _mapper.Map<SaleDto>(cancelledSale);
     }
+}
