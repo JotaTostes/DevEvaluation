@@ -1,4 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Common.Security;
+﻿using Ambev.DeveloperEvaluation.Application.Common.Behaviors;
+using Ambev.DeveloperEvaluation.Common.Security;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +16,10 @@ namespace Ambev.DeveloperEvaluation.IoC.ModuleInitializers
 
             builder.Services.AddControllers();
             builder.Services.AddHealthChecks();
+
+            builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(PerformanceBehavior<,>));
         }
     }
 }

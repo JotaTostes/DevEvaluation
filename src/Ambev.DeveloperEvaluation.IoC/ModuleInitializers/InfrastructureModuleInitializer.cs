@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Common.EventPublisher;
+using Ambev.DeveloperEvaluation.Domain.Events;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Services;
 using Ambev.DeveloperEvaluation.ORM;
@@ -20,6 +21,17 @@ public class InfrastructureModuleInitializer : IModuleInitializer
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 
-        builder.Services.AddScoped<IEventPublisher, RebusEventPublisher>();
+        var rebusEnabled = builder.Configuration.GetValue<bool>("Rebus:Enabled");
+
+        if (rebusEnabled)
+        {
+            builder.Services.AddRebusConfiguration<SaleCreatedEvent>(builder.Configuration);
+
+            builder.Services.AddScoped<IEventPublisher, RebusEventPublisher>();
+        }
+        else
+        {
+            builder.Services.AddScoped<IEventPublisher, DummyEventPublisher>();
+        }
     }
 }
