@@ -15,6 +15,18 @@ public class SaleItem : BaseEntity
     public decimal TotalAmount { get; private set; }
     public bool IsCancelled { get; set; }
     public DateTime? CancelledAt { get; set; }
+
+    public SaleItem() { }
+
+    public SaleItem(string productId, string productName, int quantity, decimal unitPrice)
+    {
+        ProductId = productId;
+        ProductName = productName;
+        UnitPrice = unitPrice;
+        IsCancelled = false; 
+        SetQuantity(quantity); 
+    }
+
     public void SetQuantity(int quantity)
     {
         if (quantity <= 0)
@@ -24,6 +36,7 @@ public class SaleItem : BaseEntity
             throw new ArgumentException("Cannot sell more than 20 identical items", nameof(quantity));
 
         Quantity = quantity;
+
         CalculateDiscount();
         CalculateTotalAmount();
     }
