@@ -1,4 +1,4 @@
-# Ambev Developer Evaluation - Sales API
+# Developer Evaluation - Sales API
 
 A .NET 8 REST API for managing sales records, built with DDD, Clean Architecture, and CQRS patterns.
 
